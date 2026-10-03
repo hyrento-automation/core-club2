@@ -4,29 +4,44 @@ import React from "react";
 import Image from "next/image";
 import { Dumbbell, Flame, Trophy } from "lucide-react";
 import OutlineButton from "@/components/ui/OutlineButton";
-import { serviceBanners } from "@/data/siteData";
+import { siteConfig } from "@/data/siteData";
+
+const banners = [
+  {
+    id: 1,
+    title: "YOGA & PILATES",
+    description: "Outdoor yoga facing Lake Geneva & recovery Pilates engineered to decompress joints and cultivate core balance.",
+    image: "/images/onyx/Coach_leading_Pilates_session_2K_20261003020650.jpg",
+    icon: Dumbbell,
+    isLight: false,
+    href: "/activities#yoga",
+  },
+  {
+    id: 2,
+    title: "COMBAT SPORTS",
+    description: "Technical Boxing, Boxing Fitness, Muay Thai, and sparring in private rounds. Pure self-mastery & power.",
+    image: "/images/onyx/Coach_guiding_member_through_boxing_20261003015950.jpg",
+    icon: Flame,
+    isLight: true, // visual variation with washed overlay
+    href: "/activities#boxing",
+  },
+  {
+    id: 3,
+    title: "PRIVATE TRAINING",
+    description: "Tailor-made 1-on-1 sessions, biomechanics screenings, and executive mental preparation workshops.",
+    image: "/images/onyx/Athlete_training_with_coach_20261003012225_2.jpg",
+    icon: Trophy,
+    isLight: false,
+    href: "/activities#private",
+  },
+];
 
 export default function ServiceBanners() {
-  const getIcon = (iconName: string, isLight: boolean) => {
-    const iconClass = `w-12 h-12 stroke-[1.2] transition-transform duration-300 ease-editorial group-hover:-translate-y-2 ${
-      isLight ? "text-black" : "text-white"
-    }`;
-
-    switch (iconName) {
-      case "dumbbell":
-        return <Dumbbell className={iconClass} />;
-      case "flame":
-        return <Flame className={iconClass} />;
-      case "trophy":
-      default:
-        return <Trophy className={iconClass} />;
-    }
-  };
-
   return (
     <section className="w-full grid grid-cols-1 md:grid-cols-3 gap-0 overflow-hidden select-none">
-      {serviceBanners.map((banner) => {
-        const isLight = banner.isLightVariant;
+      {banners.map((banner) => {
+        const isLight = banner.isLight;
+        const IconComponent = banner.icon;
 
         return (
           <div
@@ -44,32 +59,33 @@ export default function ServiceBanners() {
               />
             </div>
 
-            {/* Overlay: middle column uses light/washed overlay; outer columns use dark overlay */}
+            {/* Overlay */}
             <div
               className={`absolute inset-0 transition-colors duration-500 ${
                 isLight
-                  ? "bg-white/75 group-hover:bg-white/85"
+                  ? "bg-white/80 group-hover:bg-white/90"
                   : "bg-black/65 group-hover:bg-black/75"
               }`}
             />
 
             {/* Centred Content Stack */}
             <div className="relative z-10 flex flex-col items-center max-w-[340px] mx-auto">
-              {/* Centred Line Icon (lifts 8px on hover) */}
               <div className="mb-6 flex items-center justify-center">
-                {getIcon(banner.iconName, !!isLight)}
+                <IconComponent
+                  className={`w-12 h-12 stroke-[1.2] transition-transform duration-300 ease-editorial group-hover:-translate-y-2 ${
+                    isLight ? "text-black" : "text-white"
+                  }`}
+                />
               </div>
 
-              {/* Bold Uppercase Title (nudges up on hover) */}
               <h3
-                className={`font-heading font-black text-2xl lg:text-3xl tracking-wider uppercase mb-4 transition-transform duration-300 ease-editorial group-hover:-translate-y-1 ${
+                className={`font-heading font-black text-2xl lg:text-3xl tracking-wider uppercase mb-3 transition-transform duration-300 ease-editorial group-hover:-translate-y-1 ${
                   isLight ? "text-black" : "text-white"
                 }`}
               >
                 {banner.title}
               </h3>
 
-              {/* 3-line light text */}
               <p
                 className={`font-body text-[14px] leading-relaxed mb-8 line-clamp-3 ${
                   isLight ? "text-neutral-700" : "text-white/80"
@@ -78,13 +94,12 @@ export default function ServiceBanners() {
                 {banner.description}
               </p>
 
-              {/* Outline Button: "SEND MESSAGE ↗" */}
               <OutlineButton
-                href="#contact"
+                href={banner.href}
                 variant="inline"
                 theme={isLight ? "light" : "dark"}
               >
-                SEND MESSAGE
+                DISCOVER CLASS
               </OutlineButton>
             </div>
           </div>

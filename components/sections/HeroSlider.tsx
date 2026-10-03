@@ -3,8 +3,20 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { heroSlides } from "@/data/siteData";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+
+const slides = [
+  {
+    id: 1,
+    image: "/images/onyx/Villa_exterior_architecture_and__2K_20261003015930.jpg",
+    tagline: "SPORT • LIFESTYLE • ZEN | ON LAKE GENEVA",
+  },
+  {
+    id: 2,
+    image: "/images/onyx/ONYX_Club_training_studio_interior_2K_20261003015925.jpg",
+    tagline: "A PRIVATE CLUB. NOTHING MORE. COLOGNY, GENEVA",
+  },
+];
 
 export default function HeroSlider() {
   const [currentIdx, setCurrentIdx] = useState(0);
@@ -15,11 +27,11 @@ export default function HeroSlider() {
   const reducedMotion = useReducedMotion();
 
   const nextSlide = useCallback(() => {
-    setCurrentIdx((prev) => (prev + 1) % heroSlides.length);
+    setCurrentIdx((prev) => (prev + 1) % slides.length);
   }, []);
 
   const prevSlide = useCallback(() => {
-    setCurrentIdx((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
+    setCurrentIdx((prev) => (prev - 1 + slides.length) % slides.length);
   }, []);
 
   // Infinite autoplay: hold ~4.5s
@@ -30,12 +42,10 @@ export default function HeroSlider() {
     return () => clearInterval(timer);
   }, [nextSlide]);
 
-  // Track mouse coordinates for thin chevron cursor
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!heroRef.current) return;
     const rect = heroRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
     setMousePos({ x: e.clientX, y: e.clientY });
     setIsLeftHalf(x < rect.width / 2);
   };
@@ -48,7 +58,7 @@ export default function HeroSlider() {
     }
   };
 
-  const currentSlide = heroSlides[currentIdx];
+  const currentSlide = slides[currentIdx];
 
   return (
     <section
@@ -60,7 +70,7 @@ export default function HeroSlider() {
       onClick={handleHeroClick}
       className="relative w-full h-screen min-h-[640px] max-h-[1080px] overflow-hidden bg-black select-none cursor-none"
     >
-      {/* 2 Full-Bleed Photo Slides with AnimatePresence mode="sync" for double-exposure crossfade */}
+      {/* 2 Full-Bleed Photo Slides with AnimatePresence mode="sync" */}
       <AnimatePresence mode="sync">
         <motion.div
           key={currentSlide.id}
@@ -70,7 +80,6 @@ export default function HeroSlider() {
           transition={{ duration: 1.0, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="absolute inset-0 w-full h-full"
         >
-          {/* Background image */}
           <div className="relative w-full h-full">
             <Image
               src={currentSlide.image}
@@ -78,15 +87,12 @@ export default function HeroSlider() {
               fill
               priority
               sizes="100vw"
-              className="object-cover object-center brightness-[0.78] contrast-[1.12]"
+              className="object-cover object-center brightness-[0.72] contrast-[1.15]"
             />
-            {/* General vignette gradient */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/60 pointer-events-none" />
           </div>
 
-          {/* Diagonal Glass Overlay on each slide:
-              clip-path: polygon(32% 0, 100% 0, 100% 100%, 75% 100%),
-              fill rgba(20,20,20,0.35) with backdrop-blur 2px and a 1px light edge line along the slanted edge */}
+          {/* Diagonal Glass Overlay on each slide */}
           <div
             className="absolute inset-0 pointer-events-none hidden sm:block"
             style={{
@@ -97,7 +103,6 @@ export default function HeroSlider() {
             }}
           />
 
-          {/* Slanted 1px edge line matching polygon edge (from 32% 0% to 75% 100%) */}
           <svg
             className="absolute inset-0 w-full h-full pointer-events-none hidden sm:block"
             preserveAspectRatio="none"
@@ -116,13 +121,9 @@ export default function HeroSlider() {
         </motion.div>
       </AnimatePresence>
 
-      {/* Static Centre Headline: NOT YOUR / TYPICAL / FITNESS
-          Montserrat 600, clamp(40px, 6vw, 96px), letter-spacing 0.6em, OUTLINED.
-          Three letters solid white: O in YOUR, Y in TYPICAL, E in FITNESS.
-          On first load each line reveals with a masked slide-up (0.8s, stagger 0.15s). */}
+      {/* Static Centre Headline: NOT YOUR / TYPICAL / FITNESS with solid O, Y, E */}
       <div className="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none px-4">
         <h1 className="flex flex-col items-center text-center font-heading font-semibold text-[clamp(32px,5.8vw,92px)] leading-[1.08] tracking-hero select-none">
-          {/* Line 1: NOT YOUR (solid 'O') */}
           <span className="overflow-hidden block py-1">
             <motion.span
               initial={{ y: "110%", opacity: 0 }}
@@ -138,7 +139,6 @@ export default function HeroSlider() {
             </motion.span>
           </span>
 
-          {/* Line 2: TYPICAL (solid 'Y') */}
           <span className="overflow-hidden block py-1">
             <motion.span
               initial={{ y: "110%", opacity: 0 }}
@@ -154,7 +154,6 @@ export default function HeroSlider() {
             </motion.span>
           </span>
 
-          {/* Line 3: FITNESS (solid 'E') */}
           <span className="overflow-hidden block py-1">
             <motion.span
               initial={{ y: "110%", opacity: 0 }}
@@ -171,20 +170,19 @@ export default function HeroSlider() {
           </span>
         </h1>
 
-        {/* Micro Tagline below headline */}
         <motion.p
           initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 0.85, y: 0 }}
+          animate={{ opacity: 0.95, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-6 text-[11px] font-heading font-bold text-white uppercase tracking-widest text-center"
+          className="mt-6 text-[11px] font-heading font-bold text-accent uppercase tracking-widest text-center"
         >
           {currentSlide.tagline}
         </motion.p>
       </div>
 
-      {/* Slide Indicators / Paginate Micro Dots at Bottom */}
+      {/* Slide Indicators */}
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex items-center gap-3 pointer-events-auto">
-        {heroSlides.map((slide, idx) => (
+        {slides.map((slide, idx) => (
           <button
             key={slide.id}
             onClick={(e) => {
@@ -201,7 +199,7 @@ export default function HeroSlider() {
         ))}
       </div>
 
-      {/* Custom Desktop Mouse Follower: Thin Chevron (‹ on left half, › on right half) */}
+      {/* Custom Desktop Mouse Follower: Thin Chevron */}
       {isHovered && (
         <motion.div
           className="fixed pointer-events-none z-50 text-white font-light text-3xl hidden md:flex items-center justify-center w-12 h-12 -translate-x-1/2 -translate-y-1/2"

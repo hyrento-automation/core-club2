@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Plus, Minus, Navigation } from "lucide-react";
+import { Plus, Minus } from "lucide-react";
 import { siteConfig } from "@/data/siteData";
 
 export default function MapSection() {
@@ -14,7 +14,7 @@ export default function MapSection() {
   return (
     <section
       id="map"
-      className="relative w-full h-[210px] md:h-[240px] bg-[#e6e6e6] overflow-hidden select-none border-t border-b border-grey-border"
+      className="relative w-full h-[220px] md:h-[250px] bg-[#e6e6e6] overflow-hidden select-none border-t border-b border-grey-border"
       onClick={() => setInteractive(true)}
       onMouseLeave={() => setInteractive(false)}
     >
@@ -26,7 +26,6 @@ export default function MapSection() {
           transformOrigin: "center center",
         }}
       >
-        {/* Grayscale Map Vector Layer */}
         <svg
           className="w-full h-full object-cover opacity-85"
           xmlns="http://www.w3.org/2000/svg"
@@ -34,25 +33,25 @@ export default function MapSection() {
           preserveAspectRatio="none"
         >
           <rect width="100%" height="100%" fill="#ececec" />
-          {/* Water body simulation */}
+          {/* Lake Geneva (Lac Léman) water simulation on the left/top */}
           <path
-            d="M0 0 L450 0 C480 80 520 180 500 280 C490 330 460 380 430 400 L0 400 Z"
+            d="M0 0 L900 0 C850 90 780 180 680 250 C580 320 420 380 0 400 Z"
             fill="#dcdcdc"
           />
-          {/* Major arterial roads */}
+          {/* Lakeshore shoreline road */}
           <path
-            d="M-50 120 L1650 140 M-50 260 L1650 250 M580 -20 L620 420 M980 -20 L940 420 M1280 -20 L1320 420"
+            d="M0 400 C420 380 580 320 680 250 C780 180 850 90 900 0"
             stroke="#ffffff"
-            strokeWidth="10"
+            strokeWidth="8"
             fill="none"
           />
           <path
-            d="M-50 120 L1650 140 M-50 260 L1650 250 M580 -20 L620 420 M980 -20 L940 420 M1280 -20 L1320 420"
-            stroke="#d0d0d0"
-            strokeWidth="2"
+            d="M-50 220 L1650 240 M-50 320 L1650 310 M750 -20 L780 420 M1050 -20 L1020 420"
+            stroke="#ffffff"
+            strokeWidth="8"
             fill="none"
           />
-          {/* Street grid matrix */}
+          {/* Grid lines */}
           {Array.from({ length: 28 }).map((_, i) => (
             <line
               key={`h-${i}`}
@@ -75,38 +74,32 @@ export default function MapSection() {
               strokeWidth="2"
             />
           ))}
-          {/* City building block parcels */}
-          <rect x="660" y="80" width="120" height="40" fill="#dfdfdf" />
-          <rect x="800" y="80" width="140" height="40" fill="#e4e4e4" />
-          <rect x="660" y="160" width="130" height="80" fill="#e0e0e0" />
-          <rect x="810" y="160" width="110" height="80" fill="#dadada" />
-          <rect x="960" y="160" width="160" height="70" fill="#e3e3e3" />
+          {/* Cologny residential plots */}
+          <rect x="760" y="100" width="140" height="50" fill="#dfdfdf" />
+          <rect x="920" y="90" width="130" height="50" fill="#e4e4e4" />
+          <rect x="740" y="180" width="150" height="70" fill="#e0e0e0" />
+          <rect x="910" y="170" width="160" height="80" fill="#dadada" />
         </svg>
       </div>
 
-      {/* Custom Black Kettlebell SVG Marker centred in map */}
+      {/* Custom Black Kettlebell SVG Marker on Cologny / Lake Geneva Shore */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center">
-        {/* Pulsing ring indicator */}
         <span className="absolute -top-1 w-12 h-12 rounded-full border-2 border-accent/40 animate-ping pointer-events-none" />
 
-        {/* Custom Black Kettlebell SVG Icon */}
         <div className="relative group/pin cursor-pointer flex flex-col items-center">
           <svg
             className="w-10 h-10 text-black drop-shadow-xl hover:scale-110 transition-transform duration-200"
             viewBox="0 0 64 64"
             fill="currentColor"
           >
-            {/* Kettlebell Handle */}
             <path
               d="M22 6 C17 6 16 11 16 18 L16 22 L24 22 L24 16 C24 13 26 12 32 12 C38 12 40 13 40 16 L40 22 L48 22 L48 18 C48 11 47 6 42 6 Z"
               fill="#000000"
             />
-            {/* Kettlebell Body */}
             <path
               d="M32 16 C18 16 12 26 12 40 C12 52 20 60 32 60 C44 60 52 52 52 40 C52 26 46 16 32 16 Z"
               fill="#000000"
             />
-            {/* Center ONYX Monogram engraving */}
             <text
               x="32"
               y="44"
@@ -120,14 +113,13 @@ export default function MapSection() {
             </text>
           </svg>
 
-          {/* Marker Tooltip label */}
           <div className="mt-1 bg-black text-white px-3 py-1 text-[10px] font-heading font-extrabold tracking-widest uppercase shadow-2xl whitespace-nowrap">
-            {siteConfig.fullName} &bull; BROOKLYN HQ
+            {siteConfig.fullName} &bull; COLOGNY, LAKE GENEVA
           </div>
         </div>
       </div>
 
-      {/* Zoom Controls on the Right */}
+      {/* Zoom Controls */}
       <div className="absolute top-1/2 -translate-y-1/2 right-6 z-20 flex flex-col gap-1.5">
         <button
           onClick={(e) => {
@@ -151,14 +143,11 @@ export default function MapSection() {
         </button>
       </div>
 
-      {/* Interactive Helper Overlay note */}
-      {!interactive && (
-        <div className="absolute bottom-2 left-4 z-20 pointer-events-none">
-          <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-500 bg-white/80 px-2 py-0.5 rounded">
-            Click map to activate zoom
-          </span>
-        </div>
-      )}
+      <div className="absolute bottom-2 left-4 z-20 pointer-events-none">
+        <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-600 bg-white/80 px-2 py-0.5 rounded">
+          {siteConfig.address} &middot; Lake Geneva Shore
+        </span>
+      </div>
     </section>
   );
 }
