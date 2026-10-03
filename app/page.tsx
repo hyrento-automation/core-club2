@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Header from "@/components/sections/Header";
 import HeroSlider from "@/components/sections/HeroSlider";
 import PortfolioGrid from "@/components/sections/PortfolioGrid";
+import VipPassSection from "@/components/sections/VipPassSection";
 import TeamSection from "@/components/sections/TeamSection";
 import ReviewsSection from "@/components/sections/ReviewsSection";
 import VideoBanner from "@/components/sections/VideoBanner";
@@ -22,8 +23,8 @@ export default function HomePage() {
   const [isInfoOpen, setIsInfoOpen] = useState(false);
 
   return (
-    <div className="relative min-h-screen bg-black text-white font-body overflow-x-hidden">
-      {/* 1. HEADER / MENU (overlaying hero) */}
+    <div className="relative min-h-screen bg-black text-white font-body overflow-x-hidden selection:bg-accent selection:text-white">
+      {/* 1. HEADER / MENU */}
       <Header onOpenInfo={() => setIsInfoOpen(true)} />
 
       {/* FLOATING ACTION BUTTONS & SCROLL TO TOP */}
@@ -37,13 +38,16 @@ export default function HomePage() {
         onClose={() => setIsInfoOpen(false)}
       />
 
-      {/* MAIN SECTIONS IN STRICT ORDER */}
+      {/* MAIN SECTIONS IN STRICT EDITORIAL ORDER */}
       <main id="main-content">
         {/* 2. HERO SLIDER (100vh) */}
         <HeroSlider />
 
-        {/* 3. INTRO + PORTFOLIO GRID (Watermark "GYM") */}
+        {/* 3. INTRO + PORTFOLIO GRID (Watermark "CLUB") */}
         <PortfolioGrid />
+
+        {/* VIP PASS 27 & LA JOURNÉE SPORTIVE & BIEN-ÊTRE */}
+        <VipPassSection />
 
         {/* 4. TEAM OF EXPERT COACHES (Dark #141414, Watermark "STAFF") */}
         <TeamSection />
@@ -51,13 +55,13 @@ export default function HomePage() {
         {/* 5. REVIEWS FROM YOU (White) */}
         <ReviewsSection />
 
-        {/* 6. VIDEO BANNER (Top-centred play button) */}
+        {/* 6. VIDEO BANNER */}
         <VideoBanner />
 
         {/* 7. WHAT IS BMI (White, Watermark "BODY") */}
         <BmiSection />
 
-        {/* 8. THREE SERVICE BANNERS (Full-width, 3 columns, zero gap) */}
+        {/* 8. THREE SERVICE BANNERS */}
         <ServiceBanners />
 
         {/* 9. WORKING HOURS AND CLASSES (Dark, Watermark "TIMETABLE") */}
@@ -66,13 +70,13 @@ export default function HomePage() {
         {/* 10. LATEST BLOG POSTS (White, Watermark "BLOG") */}
         <BlogSection />
 
-        {/* 11. FOUR PROGRAM TILES (2x2, Full-width, zero gap) */}
+        {/* 11. FOUR PROGRAM TILES */}
         <ProgramTiles />
 
-        {/* 12. MAP (Full-width grayscale map ~210px tall, kettlebell marker) */}
+        {/* 12. MAP (Cologny, Lake Geneva) */}
         <MapSection />
 
-        {/* 13. FEEL FREE TO ASK ANYTHING (White, Watermark "ASK") */}
+        {/* 13. FEEL FREE TO ASK ANYTHING (White, Watermark "VISIT") */}
         <ContactSection />
       </main>
 

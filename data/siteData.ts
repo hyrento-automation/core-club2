@@ -23,6 +23,7 @@ export interface ActivityItem {
   priceGroup?: number;
   priceSingle?: number;
   href: string;
+  scheduleTime?: string;
 }
 
 export interface Coach {
@@ -50,12 +51,25 @@ export interface ConceptItem {
   image: string;
 }
 
+export interface TimetableEvent {
+  id: string;
+  title: string;
+  trainer: string;
+  category: "PILATES & YOGA" | "BOXE" | "COACHING SPORTIF" | "STRONG & STRETCH" | "DÉVELOPPEMENT";
+  day: "MON" | "TUE" | "WED" | "THU" | "FRI" | "SAT" | "SUN";
+  startHour: number;
+  duration: number;
+  level: string;
+  room: string;
+  description: string;
+}
+
 export const siteConfig = {
   brandName: "ONYX",
   fullName: "ONYX CLUB",
   city: "Cologny, Geneva",
-  region: "Lake Geneva, Switzerland",
-  tagline: "SPORT • LIFESTYLE • ZEN | ON LAKE GENEVA",
+  region: "Sur le lac Léman · Lake Geneva, Switzerland",
+  tagline: "SPORT • LIFESTYLE • ZEN | SUR LE LAC LÉMAN",
   heroTitle: "A CLUB APART.",
   heroSubtitle: "A private club. Nothing more. Sport, relaxation and panoramic views on the shore of Lake Geneva.",
   phone: "078 613 70 21",
@@ -81,7 +95,41 @@ export const siteConfig = {
     { platform: "Facebook", url: "https://facebook.com" },
     { platform: "LinkedIn", url: "https://linkedin.com" },
   ],
-  marquee: "SPORT • LIFESTYLE • ZEN • MOVE • BREATHE • EVOLVE • ON LAKE GENEVA • COLOGNY • ",
+  marquee: "SPORT • LIFESTYLE • ZEN • BOUGEZ • RESPIREZ • ÉVOLUEZ • SUR LE LAC LÉMAN • COLOGNY • ",
+  slogans: [
+    "PLUS QU'UN CLUB, UN ART DE VIVRE",
+    "STRONGER HAPPIER YOU",
+    "CORPS • ESPRIT • ÉQUILIBRE • COMMUNAUTÉ • RÉSULTATS",
+    "DISCIPLINE AUJOURD'HUI • RÉSULTATS DEMAIN",
+    "GOOD PEOPLE • BETTER YOU",
+    "SPORT • BIEN-ÊTRE • CONNEXION • DÉPASSEMENT",
+    "DISCIPLINE • ÉQUILIBRE • PROGRÈS • LIBERTÉ",
+    "BOUGEZ. RESPIREZ. ÉVOLUEZ.",
+  ],
+};
+
+export const vipEventPass = {
+  title: "LA JOURNÉE SPORTIVE & BIEN-ÊTRE",
+  subtitle: "Une expérience unique pour booster votre corps, apaiser votre esprit et révéler le meilleur de vous-même.",
+  dateText: "DIMANCHE 27 SEPTEMBRE",
+  dateFormatted: "27.09.2026",
+  hoursText: "8H00 – 16H00",
+  locationText: "Chemin du Nant-d'Argent 1, Cologny",
+  ticketNumber: "027",
+  privilegeTag: "ACCÈS PRIVILÉGIÉ",
+  offerTag: "VOTRE 1ÈRE SESSION OFFERTE",
+  phone: "078 613 70 21",
+  ticketRecto: "/images/onyx/ticket-recto.jpg",
+  ticketVerso: "/images/onyx/ticket-verso.jpg",
+  posterImage: "/images/onyx/journee-sportive-poster.jpg",
+  schedule: [
+    { time: "09H30 - 10H30", title: "PILATES", coach: "Camille de Senarclens", desc: "Gainage profond, renforcement postural et centrage." },
+    { time: "11H00 - 12H00", title: "YOGA", coach: "Camille de Senarclens", desc: "Vinyasa flow synchronisé au souffle face au lac Léman." },
+    { time: "12H00 - 13H00", title: "DÉVELOPPEMENT PERSONNEL", coach: "Eléna Vogel", desc: "Clarté mentale, résilience et alignement des objectifs." },
+    { time: "13H00 - 14H00", title: "BOXE", coach: "Alexandre Dubois", desc: "Technique de frappe, jeu de jambes et réflexes cognitifs." },
+    { time: "14H00 - 14H45", title: "STRONG NATION / CIRCLE MOBILITY", coach: "Maya Kowalski", desc: "Conditionnement à haute énergie en musique et mobilité articulaire." },
+    { time: "16H00 - 17H00", title: "STRETCHING", coach: "Chloé Rochat", desc: "Décompression myofasciale au coucher du soleil sur le lac." },
+  ],
 };
 
 export const navItems: NavItem[] = [
@@ -99,10 +147,12 @@ export const navItems: NavItem[] = [
     label: "ACTIVITIES",
     href: "/activities",
     dropdown: [
-      { label: "YOGA & PILATES", href: "/activities#yoga" },
-      { label: "COMBAT SPORTS & BOXING", href: "/activities#boxing" },
-      { label: "PRIVATE TRAINING", href: "/activities#private" },
-      { label: "RUNNING & BOOTCAMP", href: "/activities#outdoor" },
+      { label: "PILATES & YOGA", href: "/activities#pilates-yoga" },
+      { label: "DÉVELOPPEMENT PERSONNEL", href: "/activities#dev-perso" },
+      { label: "STRONG NATION / MOBILITY", href: "/activities#strong-nation" },
+      { label: "BOXE & COMBAT", href: "/activities#boxe" },
+      { label: "COACHING SPORTIF", href: "/activities#coaching-sportif" },
+      { label: "STRETCHING FACING THE LAKE", href: "/activities#stretching" },
       { label: "RATES & SESSIONS", href: "/activities#pricing" },
     ],
   },
@@ -112,7 +162,7 @@ export const navItems: NavItem[] = [
     dropdown: [
       { label: "EXPERT COACHES", href: "/team#coaches" },
       { label: "BIOMECHANICS & WELLNESS", href: "/team#coaches" },
-      { label: "MEET THE FOUNDERS", href: "/team#philosophy" },
+      { label: "PHILOSOPHY", href: "/team#philosophy" },
     ],
   },
   {
@@ -134,6 +184,7 @@ export const navItems: NavItem[] = [
     ],
   },
   { label: "REVIEWS", href: "/reviews" },
+  { label: "VIP PASS 27", href: "/#vip-pass" },
   { label: "BOOK", href: "/book" },
 ];
 
@@ -165,7 +216,7 @@ export const conceptPillars: ConceptItem[] = [
   {
     number: "05",
     title: "CARE & RECOVERY",
-    description: "Post-workout myofascial release, infrared recovery, sauna, luxury rain showers, and premium grooming vanities.",
+    description: "Post-workout myofascial release, infrared recovery, luxury rain showers, and premium grooming vanities.",
     image: "/images/onyx/Club_washroom_vanity_interior_view_20261003015950.jpg",
   },
   {
@@ -178,77 +229,83 @@ export const conceptPillars: ConceptItem[] = [
 
 export const activitiesList: ActivityItem[] = [
   {
-    id: "yoga-pilates",
+    id: "pilates-yoga",
     number: "01",
-    title: "YOGA & PILATES",
+    title: "PILATES & YOGA",
     subtitle: "Outdoor yoga facing the lake · recovery Pilates",
     description: "Fluid athletic vinyasa flows on the lakeside terrace paired with clinical reformer Pilates designed to decompress the spine, realign postural chains, and awaken deep core stabilization.",
-    image: "/images/onyx/Coach_guiding_yoga_class_2K_20261003020658.jpg",
+    image: "/images/onyx/coach-pilates-yoga.jpg",
     priceGroup: 35,
     priceSingle: 120,
-    href: "/activities#yoga",
+    href: "/activities#pilates-yoga",
+    scheduleTime: "09H30 – 12H00",
   },
   {
-    id: "combat-sports",
+    id: "dev-perso",
     number: "02",
-    title: "COMBAT SPORTS",
-    subtitle: "Technical Boxing · Boxing Fitness · Muay Thai · Sparring",
-    description: "High-density technical boxing and striking fundamentals coached in controlled private rounds. Build explosive rotational power, cognitive reflexes, and relentless cardiovascular endurance.",
-    image: "/images/onyx/Coach_guiding_member_boxing_tech_20261003015950.jpg",
-    priceGroup: 35,
+    title: "DÉVELOPPEMENT PERSONNEL",
+    subtitle: "Ateliers · 1h préparation mentale & clarté",
+    description: "Executive cognitive conditioning, breathing mechanics, HRV stress modulation, and mental clarity workshops led by accredited performance mentors.",
+    image: "/images/onyx/coach-dev-perso.jpg",
     priceSingle: 120,
-    href: "/activities#boxing",
+    href: "/activities#dev-perso",
+    scheduleTime: "12H00 – 13H00",
   },
   {
-    id: "private-training",
+    id: "strong-nation",
     number: "03",
-    title: "PRIVATE TRAINING",
-    subtitle: "Personal Training · tailor-made sessions",
-    description: "One-on-one training protocols engineered exclusively around your biomechanics, injury history, and athletic objectives. Measurable progress backed by sports science.",
-    image: "/images/onyx/Athlete_training_with_coach_20261003012225_2.jpg",
-    priceSingle: 120,
-    href: "/activities#private",
+    title: "STRONG NATION / CIRCLE MOBILITY",
+    subtitle: "High intensity synchronized conditioning & dynamic mobility",
+    description: "Reverse-engineered music-led cardio strength combined with 360-degree joint mobility sequences for athletic resilience and calorie burn.",
+    image: "/images/onyx/coach-strong-nation.jpg",
+    priceGroup: 35,
+    href: "/activities#strong-nation",
+    scheduleTime: "14H00 – 14H45",
   },
   {
-    id: "running",
+    id: "boxe",
     number: "04",
-    title: "RUNNING CLUB",
-    subtitle: "Running Club · along the lakeshore",
-    description: "Lakeside pacing, aerobic threshold development, and cadence refinement along the scenic Cologny shores of Lake Geneva with structured interval flushing.",
-    image: "/images/onyx/Adults_chatting_on_lakeside_terrace_20261003012226.jpg",
+    title: "BOXE",
+    subtitle: "Boxe Technic · Boxe Fitness · Muay Thaï · Sparring",
+    description: "High-density technical boxing and striking fundamentals coached in controlled private rounds. Build explosive rotational power, cognitive reflexes, and relentless cardiovascular endurance.",
+    image: "/images/onyx/coach-boxe.jpg",
     priceGroup: 35,
-    href: "/activities#outdoor",
-  },
-  {
-    id: "personal-development",
-    number: "05",
-    title: "PERSONAL DEVELOPMENT",
-    subtitle: "Workshops · 1h mental preparation",
-    description: "Executive cognitive conditioning, breathing mechanics, HRV stress modulation, and mental clarity workshops led by accredited sports performance psychologists.",
-    image: "/images/onyx/Adults_having_coaching_conversation_20261003012226.jpg",
     priceSingle: 120,
-    href: "/activities#private",
+    href: "/activities#boxe",
+    scheduleTime: "13H00 – 14H00",
   },
   {
-    id: "bootcamp",
+    id: "coaching-sportif",
+    number: "05",
+    title: "COACHING SPORTIF",
+    subtitle: "Personal Training · tailor-made sessions & biomechanics",
+    description: "One-on-one training protocols engineered exclusively around your biomechanics, injury history, and athletic objectives. Measurable progress backed by sports science.",
+    image: "/images/onyx/coach-sportif.jpg",
+    priceSingle: 120,
+    href: "/activities#coaching-sportif",
+    scheduleTime: "Sur Mesure (On Demand)",
+  },
+  {
+    id: "stretching",
     number: "06",
-    title: "BOOTCAMP",
-    subtitle: "Intensive bootcamp sessions",
-    description: "Outdoor and indoor high-intensity functional circuits utilizing kettlebells, battle ropes, plyometrics, and synchronized team challenges with maximum energy.",
-    image: "/images/onyx/Group_fitness_class_exercising_20261003015950.jpg",
+    title: "STRETCHING",
+    subtitle: "Guided stretching facing sunset on Lake Geneva",
+    description: "Full myofascial decompression, passive traction, and postural flushing practiced facing the mountains and lake as the sun sets over Cologny.",
+    image: "/images/onyx/coach-stretching.jpg",
     priceGroup: 35,
-    href: "/activities#outdoor",
+    href: "/activities#stretching",
+    scheduleTime: "16H00 – 17H00",
   },
 ];
 
 export const coaches: Coach[] = [
   {
     id: 1,
-    name: "ALEXANDRE DUBOIS",
-    role: "HEAD COMBAT & BOXING COACH",
-    specialty: "Technical Boxing, Muay Thai & Athletic Conditioning",
-    bio: "Former European boxing contender with over 12 years of professional ringside and coaching experience. Specializes in precision footwork, rotational kinetic chains, and high-intensity fight fitness.",
-    image: "/images/onyx/Coach_guiding_member_boxing_tech_20261003015950.jpg",
+    name: "CAMILLE DE SENARCLENS",
+    role: "PILATES & YOGA MASTER",
+    specialty: "Lakeside Vinyasa, Aerial Silk & Reformer Pilates",
+    bio: "Guiding members through core alignment and serene breathwork overlooking the calm waters of Lake Geneva.",
+    image: "/images/onyx/coach-pilates-yoga.jpg",
     socials: [
       { platform: "Instagram", url: "https://instagram.com" },
       { platform: "LinkedIn", url: "https://linkedin.com" },
@@ -256,11 +313,11 @@ export const coaches: Coach[] = [
   },
   {
     id: 2,
-    name: "SOPHIE LAURENT",
-    role: "YOGA & RECOVERY PILATES DIRECTOR",
-    specialty: "Lakeside Vinyasa, Reformer Pilates & Postural Alignment",
-    bio: "Certified Pilates Master with dual credentials in Geneva and Zurich. Dedicated to restoring functional movement integrity, pelvic floor stability, and breath-synchronized mobility facing Lake Geneva.",
-    image: "/images/onyx/Coach_guiding_yoga_class_2K_20261003020658.jpg",
+    name: "ELÉNA VOGEL",
+    role: "DÉVELOPPEMENT PERSONNEL & MENTAL",
+    specialty: "Executive Clarity, Cognitive Performance & Mindset",
+    bio: "Advising Geneva entrepreneurs and executives on mental resilience, distress tolerance, and decisive focus.",
+    image: "/images/onyx/coach-dev-perso.jpg",
     socials: [
       { platform: "Instagram", url: "https://instagram.com" },
       { platform: "LinkedIn", url: "https://linkedin.com" },
@@ -268,11 +325,11 @@ export const coaches: Coach[] = [
   },
   {
     id: 3,
-    name: "MARCUS VANCE",
-    role: "HEAD OF PRIVATE TRAINING & STRENGTH",
-    specialty: "Olympic Periodization, Hypertrophy & Biomechanics",
-    bio: "Sports Science Master’s degree from Lausanne. Marcus directs our tailor-made private training programs, blending data-driven strength cycles with preventative joint resilience.",
-    image: "/images/onyx/Athlete_training_with_coach_20261003012225.jpg",
+    name: "MAYA KOWALSKI",
+    role: "STRONG NATION & CIRCLE MOBILITY",
+    specialty: "High-Energy Athletic Conditioning & Fascial Chains",
+    bio: "Directing explosive rhythmic intervals and full-body rotational mobility for maximum athletic longevity.",
+    image: "/images/onyx/coach-strong-nation.jpg",
     socials: [
       { platform: "Instagram", url: "https://instagram.com" },
       { platform: "LinkedIn", url: "https://linkedin.com" },
@@ -280,11 +337,11 @@ export const coaches: Coach[] = [
   },
   {
     id: 4,
-    name: "CHLOÉ ROCHAT",
-    role: "RECOVERY & REHABILITATION SPECIALIST",
-    specialty: "Guided Stretching, Myofascial Release & Mobility",
-    bio: "Specializing in athletic decompression and sports physiotherapy. Chloé leads members through restorative post-workout flushing and active recovery protocols.",
-    image: "/images/onyx/Guided_stretching_session_20261003015951.jpg",
+    name: "ALEXANDRE DUBOIS",
+    role: "HEAD COMBAT & BOXING COACH",
+    specialty: "Technical Boxing, Muay Thai & Sparring",
+    bio: "Former European boxing contender with over 12 years of professional ringside and coaching experience.",
+    image: "/images/onyx/coach-boxe.jpg",
     socials: [
       { platform: "Instagram", url: "https://instagram.com" },
       { platform: "LinkedIn", url: "https://linkedin.com" },
@@ -292,11 +349,23 @@ export const coaches: Coach[] = [
   },
   {
     id: 5,
-    name: "DAVID MERCIER",
-    role: "MENTAL PERFORMANCE & COACHING",
-    specialty: "Executive Clarity, Breathwork & Performance Mindset",
-    bio: "Advising Geneva executives, entrepreneurs, and competitive athletes on cognitive endurance, stress resilience, and structured mental clarity.",
-    image: "/images/onyx/Adults_having_coaching_conversation_20261003012226.jpg",
+    name: "MARCUS VANCE",
+    role: "COACHING SPORTIF & PERFORMANCE",
+    specialty: "Periodized Hypertrophy, Powerlifting & Load Cycling",
+    bio: "Sports Science Master’s degree from Lausanne. Marcus directs bespoke strength cycles and athletic testing.",
+    image: "/images/onyx/coach-sportif.jpg",
+    socials: [
+      { platform: "Instagram", url: "https://instagram.com" },
+      { platform: "LinkedIn", url: "https://linkedin.com" },
+    ],
+  },
+  {
+    id: 6,
+    name: "CHLOÉ ROCHAT",
+    role: "STRETCHING & RECOVERY SPECIALIST",
+    specialty: "Myofascial Decompression & Sunset Mobility",
+    bio: "Dedicated to post-workout musculoskeletal flushing, restorative traction, and nervous system down-regulation.",
+    image: "/images/onyx/coach-stretching.jpg",
     socials: [
       { platform: "Instagram", url: "https://instagram.com" },
       { platform: "LinkedIn", url: "https://linkedin.com" },
@@ -415,25 +484,13 @@ export const bmiStatusTable = [
   { range: "30.0 and above", status: "Obese", min: 30.0, max: 100 },
 ];
 
-export interface TimetableEvent {
-  id: string;
-  title: string;
-  trainer: string;
-  category: "CARDIO" | "CROSSFIT" | "GYM" | "POWERLIFTING";
-  day: "MON" | "TUE" | "WED" | "THU" | "FRI" | "SAT" | "SUN";
-  startHour: number;
-  duration: number;
-  level: string;
-  room: string;
-  description: string;
-}
-
 export const timetableCategories = [
   "ALL EVENTS",
-  "CARDIO",
-  "CROSSFIT",
-  "GYM",
-  "POWERLIFTING",
+  "PILATES & YOGA",
+  "BOXE",
+  "COACHING SPORTIF",
+  "STRONG & STRETCH",
+  "DÉVELOPPEMENT",
 ] as const;
 
 export const timetableDays = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"] as const;
@@ -442,8 +499,8 @@ export const timetableEvents: TimetableEvent[] = [
   {
     id: "evt-1",
     title: "LAKESIDE YOGA & CORE",
-    trainer: "SOPHIE LAURENT",
-    category: "CARDIO",
+    trainer: "CAMILLE DE SENARCLENS",
+    category: "PILATES & YOGA",
     day: "MON",
     startHour: 7,
     duration: 2,
@@ -455,7 +512,7 @@ export const timetableEvents: TimetableEvent[] = [
     id: "evt-2",
     title: "TECHNICAL BOXING ROUNDS",
     trainer: "ALEXANDRE DUBOIS",
-    category: "CROSSFIT",
+    category: "BOXE",
     day: "MON",
     startHour: 10,
     duration: 1,
@@ -467,7 +524,7 @@ export const timetableEvents: TimetableEvent[] = [
     id: "evt-3",
     title: "SWISS PRIVATE STRENGTH",
     trainer: "MARCUS VANCE",
-    category: "POWERLIFTING",
+    category: "COACHING SPORTIF",
     day: "MON",
     startHour: 14,
     duration: 2,
@@ -477,21 +534,21 @@ export const timetableEvents: TimetableEvent[] = [
   },
   {
     id: "evt-4",
-    title: "SHORELINE RUNNING CLUB",
-    trainer: "MARCUS VANCE",
-    category: "CARDIO",
+    title: "STRONG NATION MOBILITY",
+    trainer: "MAYA KOWALSKI",
+    category: "STRONG & STRETCH",
     day: "TUE",
     startHour: 8,
     duration: 2,
     level: "All Levels",
-    room: "Cologny Shoreline",
-    description: "Aerobic threshold pacing and cadence refinement along the Geneva banks.",
+    room: "Main Rig",
+    description: "High-intensity athletic conditioning synchronized to music with circular mobility.",
   },
   {
     id: "evt-5",
     title: "BOXING FITNESS & SPARRING",
     trainer: "ALEXANDRE DUBOIS",
-    category: "CROSSFIT",
+    category: "BOXE",
     day: "TUE",
     startHour: 16,
     duration: 2,
@@ -502,8 +559,8 @@ export const timetableEvents: TimetableEvent[] = [
   {
     id: "evt-6",
     title: "RECOVERY REFORMER PILATES",
-    trainer: "SOPHIE LAURENT",
-    category: "GYM",
+    trainer: "CAMILLE DE SENARCLENS",
+    category: "PILATES & YOGA",
     day: "WED",
     startHour: 8,
     duration: 2,
@@ -514,8 +571,8 @@ export const timetableEvents: TimetableEvent[] = [
   {
     id: "evt-7",
     title: "EXECUTIVE MENTAL LAB",
-    trainer: "DAVID MERCIER",
-    category: "GYM",
+    trainer: "ELÉNA VOGEL",
+    category: "DÉVELOPPEMENT",
     day: "WED",
     startHour: 14,
     duration: 2,
@@ -525,33 +582,33 @@ export const timetableEvents: TimetableEvent[] = [
   },
   {
     id: "evt-8",
-    title: "MUAY THAI CLINIC",
+    title: "TECHNICAL BOXING CLINIC",
     trainer: "ALEXANDRE DUBOIS",
-    category: "CROSSFIT",
+    category: "BOXE",
     day: "THU",
     startHour: 10,
     duration: 2,
     level: "Advanced",
     room: "Combat Arena",
-    description: "Low kick conditioning, clinch fundamentals, and hip drive acceleration.",
+    description: "Precision punch combinations, slip counters, and speed drills.",
   },
   {
     id: "evt-9",
-    title: "INTENSIVE BOOTCAMP",
+    title: "COACHING SPORTIF INTENSIF",
     trainer: "MARCUS VANCE",
-    category: "CARDIO",
+    category: "COACHING SPORTIF",
     day: "FRI",
     startHour: 9,
     duration: 2,
     level: "All Levels",
-    room: "Villa Grounds",
-    description: "Dynamic outdoor functional circuit utilizing kettlebells and battle ropes.",
+    room: "Studio Interior",
+    description: "Targeted full-body functional hypertrophy with eccentric tempos.",
   },
   {
     id: "evt-10",
     title: "SATURDAY LAKE THROWDOWN",
     trainer: "ALEXANDRE DUBOIS",
-    category: "CROSSFIT",
+    category: "BOXE",
     day: "SAT",
     startHour: 9,
     duration: 2,
@@ -559,17 +616,78 @@ export const timetableEvents: TimetableEvent[] = [
     room: "Lakeside Terrace",
     description: "Community weekend throwdown celebrating athletic camaraderie in Cologny.",
   },
+  // SUNDAY 27: Official "Journée Sportive & Bien-Être" Schedule matching Pass 27
   {
-    id: "evt-11",
-    title: "GUIDED STRETCH & DETOX",
-    trainer: "CHLOÉ ROCHAT",
-    category: "GYM",
+    id: "evt-sun-1",
+    title: "PILATES DU LAC",
+    trainer: "CAMILLE DE SENARCLENS",
+    category: "PILATES & YOGA",
     day: "SUN",
-    startHour: 10,
-    duration: 2,
+    startHour: 9,
+    duration: 1,
     level: "All Levels",
     room: "Lakeside Terrace",
-    description: "Myofascial release followed by signature Blue Léman protein shakes.",
+    description: "09h30 - 10h30 : Gainage profond et réalignement postural face au lac.",
+  },
+  {
+    id: "evt-sun-2",
+    title: "YOGA VINYASA",
+    trainer: "CAMILLE DE SENARCLENS",
+    category: "PILATES & YOGA",
+    day: "SUN",
+    startHour: 11,
+    duration: 1,
+    level: "All Levels",
+    room: "Lakeside Terrace",
+    description: "11h00 - 12h00 : Vinyasa flow dynamique et respiration consciente.",
+  },
+  {
+    id: "evt-sun-3",
+    title: "DÉVELOPPEMENT PERSONNEL",
+    trainer: "ELÉNA VOGEL",
+    category: "DÉVELOPPEMENT",
+    day: "SUN",
+    startHour: 12,
+    duration: 1,
+    level: "All Levels",
+    room: "Lounge Suite",
+    description: "12h00 - 13h00 : Atelier de clarté mentale et préparation des objectifs.",
+  },
+  {
+    id: "evt-sun-4",
+    title: "BOXE PRIVILÈGE",
+    trainer: "ALEXANDRE DUBOIS",
+    category: "BOXE",
+    day: "SUN",
+    startHour: 13,
+    duration: 1,
+    level: "All Levels",
+    room: "Combat Arena",
+    description: "13h00 - 14h00 : Maîtrise de soi, coordination et frappe technique.",
+  },
+  {
+    id: "evt-sun-5",
+    title: "STRONG NATION / MOBILITY",
+    trainer: "MAYA KOWALSKI",
+    category: "STRONG & STRETCH",
+    day: "SUN",
+    startHour: 14,
+    duration: 1,
+    level: "All Levels",
+    room: "Main Rig",
+    description: "14h00 - 14h45 : Entraînement à haute intensité et mobilité Circle.",
+  },
+  {
+    id: "evt-sun-6",
+    title: "STRETCHING FACE AU SOLEIL",
+    trainer: "CHLOÉ ROCHAT",
+    category: "STRONG & STRETCH",
+    day: "SUN",
+    startHour: 16,
+    duration: 1,
+    level: "All Levels",
+    room: "Lakeside Terrace",
+    description: "16h00 - 17h00 : Décompression myofasciale au coucher du soleil sur le lac Léman.",
   },
 ];
 
@@ -586,30 +704,29 @@ export interface BlogPost {
 export const blogPosts: BlogPost[] = [
   {
     id: 1,
-    title: "WHY CLEAN-LABEL PROTEIN MATTERS FOR RECOVERY ON LAKE GENEVA",
-    excerpt: "Discover the metabolic differences between industrial whey blends and whole-food formulations crafted at the ONYX Bar.",
-    day: "04",
-    month: "OCT",
-    image: "/images/onyx/Chocolate_protein_shake_in_glass_2K_20261003031440_copy.jpg",
-    slug: "clean-label-protein-recovery",
+    title: "LA JOURNÉE SPORTIVE & BIEN-ÊTRE DU 27 SEPTEMBRE À COLOGNY",
+    excerpt: "Programme officiel, accès VIP Pass 27 et déroulement des ateliers de Pilates, Yoga, Boxe et Stretching face au lac Léman.",
+    day: "27",
+    month: "SEP",
+    image: "/images/onyx/journee-sportive-poster.jpg",
+    slug: "journee-sportive-bien-etre-cologny",
   },
   {
     id: 2,
-    title: "THE POWER OF OUTDOOR VINYASA FACING THE ALPINE WATERS",
-    excerpt: "How practicing breath-synchronized yoga in high negative-ion lake air accelerates neural decompression and cardiovascular renewal.",
-    day: "18",
+    title: "POURQUOI LE YOGA FACE AU LAC DÉCUPLE LA RÉCUPÉRATION NEURONALE",
+    excerpt: "Comment la pratique du vinyasa au bord de l'eau favorise la clarté mentale et régule la variabilité de la fréquence cardiaque.",
+    day: "04",
     month: "OCT",
     image: "/images/onyx/Coach_guiding_yoga_class_2K_20261003020658.jpg",
-    slug: "outdoor-vinyasa-lake-geneva",
+    slug: "yoga-face-au-lac-recuperation",
   },
   {
     id: 3,
-    title: "TECHNICAL BOXING AS COGNITIVE CONDITIONING FOR EXECUTIVES",
-    excerpt: "Why high-level entrepreneurs in Geneva choose boxing to hone decisive reflexes, distress tolerance, and cognitive focus.",
-    day: "02",
-    month: "NOV",
-    image: "/images/onyx/Coach_guiding_member_boxing_tech_20261003015950.jpg",
-    slug: "technical-boxing-executive-conditioning",
+    title: "LA NUTRITION CLEAN-LABEL : LE SECRET DE NOS SHAKES PROTÉINÉS",
+    excerpt: "30g de protéines pures sans édulcorants de synthèse : découverte de nos formulations créées au bar ONYX.",
+    day: "18",
+    month: "OCT",
+    image: "/images/onyx/Chocolate_protein_shake_in_glass_2K_20261003031440_copy.jpg",
+    slug: "nutrition-clean-label-milkshakes-onyx",
   },
 ];
-

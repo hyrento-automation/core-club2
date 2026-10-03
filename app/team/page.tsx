@@ -9,7 +9,7 @@ import OffCanvasPanel from "@/components/ui/OffCanvasPanel";
 import SectionWatermark from "@/components/ui/SectionWatermark";
 import OutlineButton from "@/components/ui/OutlineButton";
 import { HeadingReveal, ScrollReveal } from "@/components/ui/ScrollReveal";
-import { coaches } from "@/data/siteData";
+import { coaches, siteConfig } from "@/data/siteData";
 
 export default function TeamPage() {
   const [isInfoOpen, setIsInfoOpen] = useState(false);
@@ -25,131 +25,135 @@ export default function TeamPage() {
         <section className="relative w-full min-h-[480px] flex items-center justify-center bg-black overflow-hidden px-6 py-20 border-b border-white/10">
           <SectionWatermark text="STAFF" theme="dark" />
 
-          {/* Background image: Athlete and Coach */}
+          {/* Background image */}
           <div className="absolute inset-0 z-0">
             <Image
-              src="/images/onyx/Athlete_training_with_coach_20261003012225_2.jpg"
-              alt="ONYX Club Coaching Staff Cologny"
+              src="/images/onyx/journee-sportive-poster.jpg"
+              alt="ONYX Club Faculty Poster"
               fill
               priority
               sizes="100vw"
-              className="object-cover object-center filter brightness-[0.45] contrast-[1.2]"
+              className="object-cover object-center filter brightness-[0.35] contrast-[1.2]"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/70 pointer-events-none" />
           </div>
 
           <div className="relative z-10 max-w-4xl mx-auto text-center">
             <span className="inline-block text-[11px] font-heading font-bold text-accent uppercase tracking-widest mb-3">
-              THE COACHING FLOOR &middot; COLOGNY SANCTUARY
+              ÉQUIPE OFFICIELLE &middot; COLOGNY, GENÈVE
             </span>
             <HeadingReveal
               as="h1"
-              className="font-heading font-black text-3xl sm:text-5xl lg:text-6xl uppercase tracking-wider text-white leading-tight mb-6"
+              className="font-heading font-black text-3xl sm:text-5xl lg:text-6xl uppercase tracking-wider text-white leading-tight mb-4"
             >
-              ELITE ATHLETIC MASTERS.
+              LES SIX MAÎTRES D&apos;ONYX
             </HeadingReveal>
+            <p className="font-heading font-semibold text-accent text-sm sm:text-base uppercase tracking-widest mb-6">
+              GOOD PEOPLE &bull; BETTER YOU
+            </p>
             <ScrollReveal delay={0.15}>
               <p className="font-body text-neutral-300 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-8">
-                Our team brings European combat pedigrees, certified Swiss Pilates mastery, Olympic strength periodization, and executive cognitive science together under one roof.
+                Des praticiens d&apos;élite dédiés à l&apos;alignement postural, à la puissance rotative de la boxe, au conditionnement physique et à la clarté mentale face au lac Léman.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-4">
                 <OutlineButton href="/book" variant="box" theme="dark">
-                  BOOK PRIVATE COACH
+                  RÉSERVER UN COACH (120 CHF)
                 </OutlineButton>
                 <OutlineButton href="/activities" variant="inline" theme="dark">
-                  EXPLORE DISCIPLINES
+                  VOIR LE PROGRAMME
                 </OutlineButton>
               </div>
             </ScrollReveal>
           </div>
         </section>
 
-        {/* Full Team Grid */}
+        {/* 6 Coaches Grid from Official Poster */}
         <section id="coaches" className="relative w-full bg-dark text-white py-24 px-6 lg:px-16 overflow-hidden">
-          <SectionWatermark text="MASTERS" theme="dark" />
+          <SectionWatermark text="COACHS" theme="dark" />
 
           <div className="max-w-6xl mx-auto relative z-10">
             <div className="text-center max-w-3xl mx-auto mb-16">
               <span className="text-[10px] font-heading font-bold uppercase tracking-widest text-accent block mb-2">
-                PERSONALIZED MENTORSHIP
+                ENCADREMENT PERSONNALISÉ
               </span>
               <HeadingReveal
                 as="h2"
                 className="font-heading font-black text-3xl sm:text-4xl uppercase tracking-tight text-white mb-4"
               >
-                MEET YOUR PERFORMANCE DIRECTORS
+                NOS DIRECTEURS DE LA PERFORMANCE
               </HeadingReveal>
               <p className="font-body text-grey-body text-sm leading-relaxed">
-                Every member receives dedicated guidance, form corrections, and customized load management.
+                Chaque membre bénéficie de corrections posturales millimétrées et d&apos;une écoute attentive.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-              {coaches.map((coach, idx) => (
-                <ScrollReveal key={coach.id} delay={idx * 0.1}>
-                  <div className="group relative flex flex-col justify-between h-full bg-black border border-white/10 p-6 hover:border-accent transition-colors duration-300">
-                    <div>
-                      {/* Coach Photo */}
-                      <div className="relative w-full aspect-[4/5] bg-neutral-900 overflow-hidden mb-6">
-                        <Image
-                          src={coach.image}
-                          alt={coach.name}
-                          fill
-                          sizes="(max-width: 768px) 100vw, 33vw"
-                          className="object-cover object-top filter grayscale contrast-[1.1] group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700 ease-editorial"
-                        />
-                        <div className="absolute top-3 right-3 bg-black/80 border border-white/20 text-accent font-mono text-[9px] font-bold px-2 py-0.5 tracking-wider">
-                          0{coach.id}
-                        </div>
+              {coaches.map((coach) => (
+                <div
+                  key={coach.id}
+                  className="group relative flex flex-col justify-between h-full bg-black border border-white/10 p-6 hover:border-accent transition-colors duration-300 shadow-xl"
+                >
+                  <div>
+                    {/* Official Coach Portrait Crop */}
+                    <div className="relative w-full aspect-square bg-neutral-900 overflow-hidden mb-6 rounded-full border-2 border-white/20 group-hover:border-accent transition-colors duration-300">
+                      <Image
+                        src={coach.image}
+                        alt={coach.name}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        className="object-cover object-center group-hover:scale-110 transition-transform duration-500 ease-editorial"
+                      />
+                      <div className="absolute top-2 right-2 bg-black/90 border border-white/20 text-accent font-mono text-[9px] font-bold px-2 py-0.5 tracking-wider rounded-full">
+                        0{coach.id}
                       </div>
-
-                      <span className="text-[10px] font-heading font-bold uppercase tracking-widest text-accent block mb-1">
-                        {coach.role}
-                      </span>
-                      <h3 className="font-heading font-black text-xl uppercase tracking-wider text-white mb-2">
-                        {coach.name}
-                      </h3>
-                      <p className="text-xs font-heading text-neutral-400 mb-3 tracking-wider">
-                        {coach.specialty}
-                      </p>
-                      <p className="font-body text-grey-body text-xs sm:text-[13px] leading-relaxed mb-6">
-                        {coach.bio}
-                      </p>
                     </div>
 
-                    <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-                      <OutlineButton href="/book" variant="inline" theme="dark">
-                        RESERVE 1-ON-1
-                      </OutlineButton>
-                      <span className="text-[10px] font-mono text-grey-body">
-                        120 CHF / 1H
-                      </span>
-                    </div>
+                    <span className="text-[10px] font-heading font-bold uppercase tracking-widest text-accent block mb-1">
+                      {coach.role}
+                    </span>
+                    <h3 className="font-heading font-black text-xl uppercase tracking-wider text-white mb-2">
+                      {coach.name}
+                    </h3>
+                    <p className="text-xs font-heading text-neutral-400 mb-3 tracking-wider">
+                      {coach.specialty}
+                    </p>
+                    <p className="font-body text-grey-body text-xs sm:text-[13px] leading-relaxed mb-6">
+                      {coach.bio}
+                    </p>
                   </div>
-                </ScrollReveal>
+
+                  <div className="pt-4 border-t border-white/10 flex items-center justify-between">
+                    <OutlineButton href="/book" variant="inline" theme="dark">
+                      SÉANCE PRIVÉE
+                    </OutlineButton>
+                    <span className="text-[10px] font-mono text-grey-body">
+                      {siteConfig.prices.single} {siteConfig.currency} / 1H
+                    </span>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Philosophy Callout */}
+        {/* Philosophy Callout with Slogans from Poster */}
         <section id="philosophy" className="relative w-full bg-white text-black py-20 px-6 lg:px-16">
           <div className="max-w-4xl mx-auto text-center space-y-6">
             <span className="text-[11px] font-heading font-bold text-grey-body uppercase tracking-widest">
-              OUR COACHING ETHOS
+              L&apos;ART DE VIVRE ONYX
             </span>
             <HeadingReveal
               as="h2"
               className="font-heading font-black text-2xl sm:text-4xl uppercase tracking-wider text-black"
             >
-              PRECISE SCIENCE &middot; ZERO DISTRACTIONS
+              DISCIPLINE AUJOURD&apos;HUI &middot; RÉSULTATS DEMAIN
             </HeadingReveal>
             <p className="font-body text-grey-body text-sm sm:text-[15px] leading-relaxed max-w-2xl mx-auto">
-              At ONYX Club, we eliminate ego lifting and generic routines. Every movement prescription is grounded in joint mechanics, cardiovascular capacity, and sustainable longevity.
+              Corps, esprit, équilibre, communauté, résultats. Chez ONYX Club, chaque mouvement a un but précis : vous rendre plus fort, plus serein et plus épanoui au quotidien.
             </p>
             <div className="pt-4">
               <OutlineButton href="/book" variant="solid">
-                SCHEDULE CONSULTATION
+                PRENDRE CONTACT AVEC L&apos;ÉQUIPE
               </OutlineButton>
             </div>
           </div>
